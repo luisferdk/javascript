@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drop Down</title>
+    <style>
+      body {
+        font-family: system-ui;
+      }
+      main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 50%;
+        margin: auto;
+      }
+      summary {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <details open>
+        <summary>Menu 1</summary>
+        <ol>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Menu 2</summary>
+        <ol>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Menu 3</summary>
+        <ol>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary>Menu 4</summary>
+        <ol>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ol>
+      </details>
+    </main>
+    <script>
+      const $detailList = document.querySelectorAll('details');
+      $detailList.forEach(($details) => {
+        $details.querySelector('summary').addEventListener('click', expand);
+      });
+
+      function expand() {
+        $detailList.forEach(($details) => {
+          $details.removeAttribute('open');
+        });
+      }
+    </script>
+  </body>
+</html>
