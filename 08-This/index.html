@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        background: rgb(233, 233, 15);
+        font-size: 30px;
+        font-weight: bold;
+        color: rgb(199, 17, 17);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      // this General
+      console.log('this General');
+      console.log(this);
+
+      // this con funciones normales
+      $container = document.querySelector('#container');
+      function renderNameNormal(name) {
+        console.log('this en función normal');
+        console.log(this);
+        $container.textContent = `El nombre es: ${name}`;
+      }
+      renderNameNormal('Luis');
+
+      // this con función flecha
+      const renderNameArrow = (name) => {
+        console.log('this en función flecha');
+        console.log(this);
+        $container.textContent = `El nombre es: ${name}`;
+      };
+      renderNameArrow('Peter');
+
+      // this con objetos
+      const persona = {
+        $container2: document.querySelector('#container'),
+        renderName: function (name) {
+          console.log('this en función de un objeto');
+          console.log(this);
+          this.$container2.textContent = `El nombre es: ${name}`;
+        },
+      };
+
+      persona.renderName('Jose');
+
+      // this con error porque this.$container2 no existe en el contexto general(window)
+      // const renderName2 = persona.renderName;
+      // renderName2('Gustavo');
+
+      // this con bind
+      console.log('this con bind');
+      let renderName3 = persona.renderName;
+      renderName3 = renderName3.bind(persona); //persona es el contexto para this
+      renderName3('Pedro');
+
+      // this con call
+      console.log('this con call');
+      let renderName4 = persona.renderName;
+      renderName4.call(persona, 'Juan'); //persona es el contexto para this
+
+      // this con apply
+      console.log('this con apply');
+      let renderName5 = persona.renderName;
+      renderName5.call(persona, ['Maria']); //persona es el contexto para this
+
+      // This con objeto y función normal
+      console.log('This con objeto y función normal');
+      const persona2 = {
+        nombre: 'Luis',
+        imprimirNombre: function () {
+          console.log(this);
+          console.log(this.nombre);
+        },
+      };
+      persona2.imprimirNombre();
+
+      // This con objeto y función normal
+      console.log('This con objeto y función flecha');
+      const persona3 = {
+        nombre: 'Luis',
+        imprimirNombre: () => {
+          console.log('Con función flecha el contexto en el objeto es window');
+          console.log(this);
+          console.log(this.nombre);
+        },
+      };
+      persona3.imprimirNombre();
+    </script>
+  </body>
+</html>
