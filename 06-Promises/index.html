@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promises</title>
+  </head>
+  <body>
+    <script>
+      // Promise con then
+      function buy(thingToBuy, time = 2000) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(`${thingToBuy}`);
+          }, time);
+        });
+      }
+
+      function shopping() {
+        let cart = [];
+        console.log('Comprando frutas');
+        return buy('fruta')
+          .then((thing) => {
+            cart.push(thing);
+            console.log('Comprando Verduras');
+            return buy('verduras');
+          })
+          .then((thing) => {
+            cart.push(thing);
+            console.log('Comprando Harina');
+            return buy('Harina');
+          })
+          .then((thing) => {
+            cart.push(thing);
+            return cart;
+          });
+      }
+
+      shopping().then((cart) => console.log(cart.toString()));
+
+      // Promise con Async
+      async function shopping2() {
+        let cart2 = [];
+        console.log('Cart 2');
+        const fruta1 = await buy('Frutas', 2000);
+        cart2.push(fruta1);
+        const fruta2 = await buy('Verduras', 1500);
+        cart2.push(fruta2);
+        const fruta3 = await buy('Harina', 2000);
+        cart2.push(fruta3);
+        return cart2;
+      }
+
+      shopping2().then((cart2) => console.log(cart2));
+
+      // Promise All
+      Promise.all([
+        buy('frutas', 5000),
+        buy('verduras', 1000),
+        buy('Harina', 2500),
+      ]).then((cart) => console.log(cart));
+    </script>
+  </body>
+</html>
