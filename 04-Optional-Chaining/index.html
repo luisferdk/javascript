@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Optional Chaining</title>
+  </head>
+  <body>
+    <script>
+      let personaConCarro = {
+        nombre: 'Luis',
+        carro: {
+          marca: 'Spark',
+        },
+      };
+
+      let personSinCarro = {
+        nombre: 'Luis',
+      };
+
+      // Con Carro
+      // Manera antigua
+      let marca = personaConCarro.carro && personaConCarro.carro.marca;
+      // Manera Nueva
+      let marcaNueva = personaConCarro.carro?.marca;
+      console.log('Con Carro');
+      console.log(`Marca: ${marca}`);
+      console.log(`Marca Nueva: ${marcaNueva}`);
+
+      // Sin Carro
+      // Manera antigua
+      let marca2 = personSinCarro.carro && personSinCarro.carro.marca;
+      // Manera Nueva
+      let marcaNueva2 = personSinCarro.carro?.marca;
+      console.log('Sin Carro');
+      console.log(`Marca: ${marca2}`);
+      console.log(`Marca Nueva: ${marcaNueva2}`);
+    </script>
+  </body>
+</html>
