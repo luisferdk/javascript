@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms and Overlay</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e3e3e3;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+        background: white;
+        box-shadow: 0 6px 15px #3e3e3e;
+      }
+      form * {
+        margin: 8px 0;
+        text-align: center;
+      }
+      button,
+      input {
+        width: 250px;
+        height: 36px;
+        border: none;
+        border: 1px solid #e3e3e3;
+        outline: none;
+        border-radius: 100px;
+        cursor: pointer;
+      }
+      input.is-active {
+        position: relative;
+        z-index: 1;
+      }
+      button {
+        background: rgb(128, 202, 16);
+        color: white;
+      }
+
+      .overlay {
+        background: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+      }
+      .overlay.is-active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form action="">
+        <h2>Iniciar Sesión</h2>
+        <hr />
+        <input type="text" placeholder="Usuario" required />
+        <input type="password" placeholder="Contraseña" required />
+        <button type="submit">Enviar</button>
+      </form>
+      <div class="overlay"></div>
+    </main>
+    <script>
+      const $inputList = document.querySelectorAll('input');
+      const $overlay = document.querySelector('.overlay');
+
+      $overlay.addEventListener('click', (event) => {
+        $overlay.classList.remove('is-active');
+        const $element = document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+        if ($element.tagName == 'INPUT') {
+          $element.focus();
+        } else if ($element.tagName == 'BUTTON') {
+          $element.click();
+        }
+      });
+
+      $inputList.forEach(($input) => {
+        $input.addEventListener('focus', focus);
+        $input.addEventListener('blur', blur);
+      });
+
+      function focus(event) {
+        console.log('focus');
+        $overlay.classList.add('is-active');
+        event.target.classList.add('is-active');
+      }
+
+      function blur(event) {
+        console.log('blur');
+        event.target.classList.remove('is-active');
+        // $overlay.classList.remove('is-active');
+      }
+    </script>
+  </body>
+</html>
